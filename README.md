@@ -1,4 +1,4 @@
-piflix
+PiFlix
 ======
 
 PiFlix is a free netflix alternative for your Raspberry Pi. It's powered by Node.js and uses:
