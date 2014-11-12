@@ -1,8 +1,6 @@
 $(function () {
-
-    // TODO change:
-    var socket = io.connect('http://localhost');
-
+    var host = $('body').data('serverhost');
+    var socket = io.connect(host);
     var receivedSet = 1;
 
     socket.on('add-media-items', function(json) {

@@ -2,7 +2,8 @@ var movieService = require('../service/movieService');
 
 module.exports = function (app, socketio) {
     app.get('/', function (req, res) {
-        res.render("movieOverview");
+        var host = 'http://' + req.headers.host.split(':')[0];
+        res.render("movieOverview", {'host': host});
     });
 
     socketio.sockets.on('connection', function (socket) {
