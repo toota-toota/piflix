@@ -1,0 +1,20 @@
+ul#media li {
+    width: 200px;
+    height: 300px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    *display: inline;
+    *zoom: 1;
+}
+
+body {
+    background-color: #1E1E1E;
+    color: silver;
+    font-family: Arial;
+}
+
+a {
+    color: silver;
+    text-decoration: none;
+}
