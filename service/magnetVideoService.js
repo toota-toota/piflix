@@ -3,6 +3,8 @@ var
     WebTorrent = require('webtorrent'),
     proc = require('child_process'),
     fs = require('fs'),
+    EventEmitter = require('events').EventEmitter,
+    eventEmitter = new EventEmitter(),
 
     client = new WebTorrent(),
     thresholdPercentage = 2.00,
@@ -23,6 +25,9 @@ var
         }
     };
 
+
+exports.eventEmitter = eventEmitter;
+
 exports.play = function (magnet_uri) {
 
     client.destroy(function (data) { // destroy previous torrent downloads
@@ -31,7 +36,8 @@ exports.play = function (magnet_uri) {
         client.download(magnet_uri, function (torrent) { // start new torrent download
 
             extractVideoFile(torrent, function (file) {
-                console.log(file.name + ' => buffer started');
+                eventEmitter.emit('buffered', 0.00);
+                eventEmitter.emit('downloaded', 0.00);
                 var readStream = file.createReadStream();
                 var destinationPath =  tempPath + '/' + file.name;
 
@@ -49,18 +55,16 @@ exports.play = function (magnet_uri) {
 
                     if (!playerStarted) {
                         if (relativePercentage < 100) {
-                            console.log(file.name + ' => ' + relativePercentage + '% buffered (' + percentage + '% downloaded of complete video)');
+                            eventEmitter.emit('buffered', relativePercentage);
                         } else {
-                            console.log(file.name + ' => buffer complete!');
-                            console.log(file.name + ' => starting video player ...');
-
+                            eventEmitter.emit('buffered', 100.00);
                             //proc.exec('/opt/homebrew-cask/Caskroom/vlc/2.1.5/VLC.app/Contents/MacOS/VLC ' + destinationPath);
                             proc.exec('omxplayer -p -o hdmi ' + destinationPath);
                             playerStarted = true;
                         }
-                    } else {
-                        console.log(file.name + ' => ' + percentage + '% done of complete video');
                     }
+
+                    eventEmitter.emit('downloaded', percentage);
                 });
             });
         });

@@ -3,14 +3,29 @@ var movieService = require('../service/movieService'),
 
 module.exports = function (app, socketio) {
 
-    // TODO should not be a GET, refactor later
     app.get('/movie/play/:id', function (req, res) {
         var id = req.params.id;
+        var host = 'http://' + req.headers.host.split(':')[0];
+        res.render('moviePlay', {
+            "id": id,
+            "host": host
+        });
+    });
 
-        movieService.fetchDetails(id, function (response) {
-            magnetVideoService.play(response.magnetUrl);
+    socketio.sockets.on('connection', function (socket) {
+        socket.on('play', function(id) {
+            movieService.fetchDetails(id, function (response) {
+                magnetVideoService.play(response.magnetUrl);
+            });
         });
 
-        res.render('playing');
+        magnetVideoService.eventEmitter.on('buffered', function (percentage) {
+            socketio.emit('buffered', percentage);
+        });
+
+        magnetVideoService.eventEmitter.on('downloaded', function (percentage) {
+            socketio.emit('downloaded', percentage);
+        });
     });
+
 };
