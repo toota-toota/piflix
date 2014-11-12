@@ -6,8 +6,9 @@ exports.fetchOverview = function(options, callback) {
             items: []
         }
 
+        console.log('Movie overview details page ' + options.set);
         ytsresponse.MovieList.forEach(function (item) {
-            console.log(item);
+
             overview.items.push({
                 "id": item.MovieID,
                 "title": item.MovieTitleClean,
@@ -22,7 +23,7 @@ exports.fetchOverview = function(options, callback) {
 exports.fetchDetails = function(id, callback) {
     yts.getMovieDetails(id, function(ytsresponse) {
 
-        console.log(ytsresponse);
+        console.log('Showing details for: ' + ytsresponse.MovieTitleClean);
         var details = {
             "id": id,
             "title": ytsresponse.MovieTitleClean,
