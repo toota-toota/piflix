@@ -15,6 +15,9 @@
     "express": "latest",
     "socket.io": "latest",
     "webtorrent": "latest",
-    "jade": "latest"
+    "jade": "latest",
+    "yifysubs": "latest",
+    "concat-stream": "latest",
+    "adm-zip": "latest"
   }
 }

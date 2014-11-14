@@ -1,8 +1,8 @@
-
 var
     WebTorrent = require('webtorrent'),
     proc = require('child_process'),
     fs = require('fs'),
+    configService = require('./configService'),
     EventEmitter = require('events').EventEmitter,
     eventEmitter = new EventEmitter(),
 
@@ -25,21 +25,19 @@ var
         }
     };
 
-
 exports.eventEmitter = eventEmitter;
 
-exports.play = function (magnet_uri) {
+exports.playMagnet = function (magnet_uri, subtitlePath) {
 
     client.destroy(function (data) { // destroy previous torrent downloads
-        proc.exec('rm -rf ' + tempPath + ' ; mkdir ' + tempPath);
+
 
         client.download(magnet_uri, function (torrent) { // start new torrent download
-
             extractVideoFile(torrent, function (file) {
                 eventEmitter.emit('buffered', 0.00);
                 eventEmitter.emit('downloaded', 0.00);
                 var readStream = file.createReadStream();
-                var destinationPath =  tempPath + '/' + file.name;
+                var destinationPath = tempPath + '/' + file.name;
 
                 var writeStream = fs.createWriteStream(destinationPath);
                 readStream.pipe(writeStream);
@@ -58,9 +56,26 @@ exports.play = function (magnet_uri) {
                             eventEmitter.emit('buffered', relativePercentage);
                         } else {
                             eventEmitter.emit('buffered', 100.00);
-                            //proc.exec('/opt/homebrew-cask/Caskroom/vlc/2.1.5/VLC.app/Contents/MacOS/VLC ' + destinationPath);
-                            proc.exec('omxplayer -p -o hdmi ' + destinationPath);
-                            playerStarted = true;
+                            configService.get('player', function(player) {
+                                var execBuilder = '';
+                                if(player === 'omx') {
+                                    execBuilder += 'omxplayer -p -o hdmi ';
+                                    execBuilder += destinationPath;
+                                    if(subtitlePath != null) {
+                                        execBuilder += ' --subtitles ';
+                                        execBuilder += subtitlePath;
+                                    }
+                                } else if(player == 'vlc') {
+                                    execBuilder += '/opt/homebrew-cask/Caskroom/vlc/2.1.5/VLC.app/Contents/MacOS/VLC '
+                                    execBuilder += destinationPath;
+                                    if(subtitlePath != null) {
+                                        execBuilder += ' --sub-file '
+                                        execBuilder += subtitlePath;
+                                    }
+                                }
+                                proc.exec(execBuilder);
+                                playerStarted = true;
+                            });
                         }
                     }
 
@@ -69,4 +84,4 @@ exports.play = function (magnet_uri) {
             });
         });
     });
-}
+};

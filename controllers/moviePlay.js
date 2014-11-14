@@ -1,5 +1,8 @@
 var movieService = require('../service/movieService'),
-    magnetVideoService = require('../service/magnetVideoService');
+    playerService = require('../service/playerService'),
+    movieSubtitleService = require('../service/movieSubtitleService'),
+    proc = require('child_process'),
+    configService = require('../service/configService');
 
 module.exports = function (app, socketio) {
 
@@ -13,17 +16,26 @@ module.exports = function (app, socketio) {
     });
 
     socketio.sockets.on('connection', function (socket) {
-        socket.on('play', function(id) {
+        socket.on('play', function (id) {
             movieService.fetchDetails(id, function (response) {
-                magnetVideoService.play(response.magnetUrl);
+
+                // TODO do cleaning on tempPath somehwere else ...
+                configService.get('tempPath', function(tempPath) {
+                    proc.exec('rm -rf ' + tempPath + ' ; mkdir ' + tempPath);
+                    movieSubtitleService.getPathToSubtitle(response.imdbCode, function (subtitlePath) {
+                        playerService.playMagnet(response.magnetUrl, subtitlePath);
+                    })
+
+                });
+
             });
         });
 
-        magnetVideoService.eventEmitter.on('buffered', function (percentage) {
+        playerService.eventEmitter.on('buffered', function (percentage) {
             socketio.emit('buffered', percentage);
         });
 
-        magnetVideoService.eventEmitter.on('downloaded', function (percentage) {
+        playerService.eventEmitter.on('downloaded', function (percentage) {
             socketio.emit('downloaded', percentage);
         });
     });
