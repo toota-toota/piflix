@@ -22,9 +22,11 @@ module.exports = function (app, socketio) {
                 // TODO do cleaning on tempPath somehwere else ...
                 configService.get('tempPath', function(tempPath) {
                     proc.exec('rm -rf ' + tempPath + ' ; mkdir ' + tempPath);
-                    movieSubtitleService.getPathToSubtitle(response.imdbCode, function (subtitlePath) {
+
+                    // TODO remove the timeout
+                    setTimeout(movieSubtitleService.getPathToSubtitle(response.imdbCode, function (subtitlePath) {
                         playerService.playMagnet(response.magnetUrl, subtitlePath);
-                    })
+                    }), 2000);
 
                 });
 
