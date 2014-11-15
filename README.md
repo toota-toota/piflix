@@ -8,7 +8,7 @@ PiFlix is a free netflix alternative for your Raspberry Pi. It's powered by Node
 
 Installation instructions:
 - Flash raspbian to an SD card, and boot your Raspberry Pi from it
-- ssh into your raspberry pi and install Node.js
+- ssh into your raspberry pi and install Node.js and OMXPlayer
 - Download PiFlix as a zip file and extract it somewhere on your raspberry pi
 - Start PiFlix with the command: node server.js
 - Browse to http://ip-of-your-pi:3000
