@@ -1,23 +1,36 @@
 {
   "name": "piflix",
   "version": "1.0.0",
-  "description": "netflix torrent clone for your raspberry pi",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "author": "toota-toota@github",
+  "description": "Netflix-like torrent clone for Raspberry Pi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toota-toota/piflix.git"
   },
-  "author": "",
+  "bugs": {
+    "url": "https://github.com/toota-toota/piflix/issues"
+  },
+  "engines": {
+    "node": ">=0.10.30"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "main": "server.js",
   "license": "ISC",
+  "devDependencies": {
+    "mocha": "latest"
+  },
   "dependencies": {
-    "moviedb": "latest",
-    "peerflix": "latest",
+    "adm-zip": "^0.4.4",
+    "concat-stream": "^1.4.6",
+    "express": "^4.10.2",
+    "jade": "^1.7.0",
+    "moviedb": "^0.1.9",
+    "peerflix": "^0.21.3",
     "querystring": "0.1.0",
-    "express": "latest",
-    "socket.io": "latest",
-    "webtorrent": "latest",
-    "jade": "latest",
-    "yifysubs": "latest",
-    "concat-stream": "latest",
-    "adm-zip": "latest"
+    "socket.io": ">1.0.0",
+    "webtorrent": "^0.13.0",
+    "yifysubs": "0.0.1"
   }
 }
