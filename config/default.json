@@ -3,5 +3,6 @@
   "quality": "ALL",
   "player": "omx",
   "tempfolder": "/tmp/piflix",
+  "bufferPercentage": 1.50,
   "showOnlyWithSubs": false
 }
