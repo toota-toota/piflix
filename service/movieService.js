@@ -12,13 +12,16 @@ exports.fetchOverview = function (options, callback) {
             }
 
             console.log('Movie overview details page ' + options.set);
-            ytsresponse.MovieList.forEach(function (item) {
-                overview.items.push({
-                    "id": item.MovieID,
-                    "title": item.MovieTitleClean,
-                    "cover": item.CoverImage
+
+            if(ytsresponse) {
+                ytsresponse.MovieList.forEach(function (item) {
+                    overview.items.push({
+                        "id": item.MovieID,
+                        "title": item.MovieTitleClean,
+                        "cover": item.CoverImage
+                    });
                 });
-            });
+            }
 
             callback(overview);
         });

@@ -16,5 +16,12 @@ module.exports = function (app, socketio) {
                 socket.emit('add-media-items', response);
             });
         });
+
+        socket.on('request-search-suggestions', function(enteredText) {
+            movieService.fetchOverview({"sort": "seeds", "limit" : "50", "keywords": enteredText}, function(response) {
+               socket.emit("replace-media-items", response);
+            });
+        });
+
     });
 };

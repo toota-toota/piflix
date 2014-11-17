@@ -3,7 +3,21 @@ $(function () {
     var socket = io.connect(host);
     var receivedSet = 1;
 
+    var searchField = $("#search");
+    searchField.on('input',function(e){
+        socket.emit('request-search-suggestions', searchField.val());
+    });
+
+
     socket.on('add-media-items', function(json) {
+        json.items.forEach(function(item) {
+            $("#media").append(createItemSnippet(item));
+        });
+        receivedSet++;
+    });
+
+    socket.on('replace-media-items', function(json) {
+        $("#media").html('');
         json.items.forEach(function(item) {
             $("#media").append(createItemSnippet(item));
         });
