@@ -11,9 +11,7 @@ exports.fetchOverview = function (options, callback) {
                 items: []
             }
 
-            console.log('Movie overview details page ' + options.set);
-
-            if(ytsresponse) {
+            if(typeof ytsresponse.MovieList != "undefined") {
                 ytsresponse.MovieList.forEach(function (item) {
                     overview.items.push({
                         "id": item.MovieID,
