@@ -28,6 +28,7 @@ exports.getPathToSubtitle = function (idmb, callback) {
         } else {
             yifysubs.searchSubtitles(lang, idmb, function (result) {
                 if (result.length == 0) {
+                    console.log('No ' + lang + ' subtitles found');
                     callback(null);
                 } else {
                     var url = result[lang.toLowerCase()].url;
@@ -49,7 +50,7 @@ exports.getPathToSubtitle = function (idmb, callback) {
                                     if (endsWith(fileName.toLowerCase(), 'srt')) {
                                         zip.extractEntryTo(zipEntry, tmpFolder, false, true);
                                         var pathToSubtitle = tmpFolder + '/' + fileName;
-                                        console.log('subtitles present at: ' + pathToSubtitle);
+                                        console.log('Found ' + lang + ' subtitles!');
                                         callback(pathToSubtitle);
                                     }
                                 });

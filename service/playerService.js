@@ -65,7 +65,6 @@ exports.playMagnet = function (magnet_uri, subtitlePath) {
                                             execBuilder += "\"" + subtitlePath + "\"";
                                         }
                                     } else if (player == 'vlc') {
-                                        console.log('Using vlc');
                                         execBuilder += '/opt/homebrew-cask/Caskroom/vlc/2.1.5/VLC.app/Contents/MacOS/VLC '
                                         execBuilder += "\"" + destinationPath + "\"";
                                         if (subtitlePath != null) {
@@ -73,9 +72,7 @@ exports.playMagnet = function (magnet_uri, subtitlePath) {
                                             execBuilder += "\"" + subtitlePath + "\"";
                                         }
                                     }
-
-                                    console.log('starting player command:');
-                                    console.log(execBuilder);
+                                    console.log('Buffering done, starting player');
                                     proc.exec(execBuilder);
                                     playerStarted = true;
                                 });

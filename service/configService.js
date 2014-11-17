@@ -23,10 +23,8 @@ exports.get = function (key, callback) {
 
 var load = function (callback) {
     if (cached != null) {
-        console.log('using cache');
         callback(cached);
     } else {
-        console.log('NOT using cache');
         fs.exists(userPath, function (exists) {
             if (!exists) {
                 var readStream = fs.createReadStream(defaultPath);

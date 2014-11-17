@@ -1,3 +1,7 @@
+ul#media {
+    margin-top: 50px;
+}
+
 ul#media li {
     width: 200px;
     height: 300px;
@@ -11,10 +15,29 @@ ul#media li {
 body {
     background-color: #1E1E1E;
     color: silver;
+    text-align: center;
     font-family: Arial;
 }
 
 a {
     color: silver;
     text-decoration: none;
+}
+
+#search {
+    margin: auto;
+    left:0; right:0;
+    padding: 2px;
+    border: solid 5px #c9c9c9;
+    transition: border 0.3s;
+    display: block;
+    width: 50%;
+    font-family: sans-serif;
+    font-size: 18px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+}
+#search:focus {
+    outline: none;
 }
