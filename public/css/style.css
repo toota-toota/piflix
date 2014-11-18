@@ -18,6 +18,8 @@ ul#media li {
 
 #category-menu a {
     margin: 15px;
+    font-weight: bold;
+    font-size: 15pt;
 }
 
 body {

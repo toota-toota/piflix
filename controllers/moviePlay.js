@@ -20,17 +20,19 @@ module.exports = function (app, socketio) {
             movieService.fetchDetails(id, function (response) {
 
                 // TODO do cleaning on tempPath somewhere else ...
-                configService.get('tempPath', function(tempPath) {
+                configService.get('tempPath', function (tempPath) {
                     proc.exec('rm -rf ' + tempPath + ' ; mkdir ' + tempPath);
 
                     // TODO remove the timeout
-                    setTimeout(movieSubtitleService.getPathToSubtitle(response.imdbCode, function (subtitlePath) {
+                    setTimeout(movieSubtitleService.getPathToSubtitles(response.imdbCode, function (subtitlePath) {
                         playerService.playMagnet(response.magnetUrl, subtitlePath);
                     }), 2000);
-
                 });
-
             });
+        });
+
+        socket.on('stop', function () {
+            playerService.stop();
         });
 
         playerService.eventEmitter.on('buffered', function (percentage) {
@@ -39,6 +41,10 @@ module.exports = function (app, socketio) {
 
         playerService.eventEmitter.on('downloaded', function (percentage) {
             socketio.emit('downloaded', percentage);
+        });
+
+        playerService.eventEmitter.on('download-stopped', function () {
+            socketio.emit('download-stopped');
         });
     });
 

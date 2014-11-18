@@ -26,6 +26,12 @@ var
 
 exports.eventEmitter = eventEmitter;
 
+exports.stop = function () {
+    client.destroy(function (data) { // destroy previous torrent downloads
+        eventEmitter.emit('download-stopped');
+    });
+}
+
 exports.playMagnet = function (magnet_uri, subtitlePath) {
 
     configService.get("bufferPercentage", function (bufferPercentage) {

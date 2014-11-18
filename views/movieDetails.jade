@@ -14,5 +14,8 @@ html
             img(src='#{coverLarge}')
             p #{descriptionLong}
 
+            if subtitles
+                h4 #{subtitles} subtitles available!
+
             a(href='/movie/play/#{id}')
                 img(src='/img/play.png')
