@@ -12,6 +12,14 @@ ul#media li {
     *zoom: 1;
 }
 
+#category-menu {
+    margin: 25px;
+}
+
+#category-menu a {
+    margin: 15px;
+}
+
 body {
     background-color: #1E1E1E;
     color: silver;
@@ -22,6 +30,16 @@ body {
 a {
     color: silver;
     text-decoration: none;
+}
+
+.cover-small {
+    margin: auto;
+    left:0; right:0;
+    display: block;
+    max-width:120px;
+    max-height:180px;
+    width: auto;
+    height: auto;
 }
 
 #search {

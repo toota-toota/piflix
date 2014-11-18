@@ -19,7 +19,7 @@ module.exports = function (app, socketio) {
         socket.on('play', function (id) {
             movieService.fetchDetails(id, function (response) {
 
-                // TODO do cleaning on tempPath somehwere else ...
+                // TODO do cleaning on tempPath somewhere else ...
                 configService.get('tempPath', function(tempPath) {
                     proc.exec('rm -rf ' + tempPath + ' ; mkdir ' + tempPath);
 

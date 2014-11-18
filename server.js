@@ -26,6 +26,15 @@ require('./controllers/movieOverview')(app, sockio);
 require('./controllers/movieDetails')(app, sockio);
 require('./controllers/moviePlay')(app, sockio);
 
+require('./controllers/tvShowOverview')(app, sockio);
+require('./controllers/tvShowDetails')(app, sockio);
+
+
+// Start at movie overview page by default
+app.get('/', function(req, res) {
+    res.redirect('/movie/overview');
+});
+
 // display where we're hosting the server from in the console
 require('dns').lookup(os.hostname(), function(err, address, ipFamily) {
     if (!err && address) {

@@ -5,18 +5,17 @@ $(function () {
 
     var searchField = $("#search");
     searchField.on('input',function(e){
-        socket.emit('request-moviesearch-suggestions', searchField.val());
+        socket.emit('request-tvshowsearch-suggestions', searchField.val());
     });
 
-
-    socket.on('add-movie-items', function(json) {
+    socket.on('add-tvshow-items', function(json) {
         json.items.forEach(function(item) {
             $("#media").append(createItemSnippet(item));
         });
         receivedSet++;
     });
 
-    socket.on('replace-movie-items', function(json) {
+    socket.on('replace-tvshow-items', function(json) {
         $("#media").html('');
         json.items.forEach(function(item) {
             $("#media").append(createItemSnippet(item));
@@ -26,8 +25,8 @@ $(function () {
 
     var createItemSnippet = function(item) {
         var snippet = "<li>";
-        snippet += "<a href=\"/movie/details/" + item.id + "\">";
-        snippet += "<img src=\"" + item.cover + "\" />";
+        snippet += "<a href=\"/tv-show/details/" + item.id + "\">";
+        snippet += "<img src=\"" + item.cover + "\" class='cover-small'/>";
         snippet += "<h5>" + item.title + "</h5>";
         snippet += "</a>";
         snippet += "</li>";
@@ -36,8 +35,7 @@ $(function () {
 
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() == $(document).height()) {
-            socket.emit("request-movie-items", receivedSet);
+            socket.emit("request-tvshow-items", receivedSet);
         }
     });
-
 });

@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title PiFlix
+        meta(name="viewport", content="width=device-width, height=device-height, initial-scale=1.0")
+        link(href='/css/style.css', rel='stylesheet')
+        script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+        script(type='text/javascript', src='/socket.io/socket.io.js')
+        script(type='text/javascript', src='/js/tvShowOverview.js')
+    body(data-serverhost='#{host}')
+        div
+            h1 PiFlix
+
+            div(id="category-menu")
+                a(href='/movie/overview') Movies
+                a(href='/tv-show/overview') TV Shows
+
+            div
+                input(type="text", id="search", placeholder="Search")
+            div
+                ul(id="media")
+            div(id="bottom")
