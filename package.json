@@ -31,6 +31,7 @@
     "querystring": "0.1.0",
     "socket.io": ">1.0.0",
     "webtorrent": "^0.13.0",
-    "yifysubs": "0.0.1"
+    "yifysubs": "0.0.1",
+    "request": "2.48.0"
   }
 }
