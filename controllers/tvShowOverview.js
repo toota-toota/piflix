@@ -7,9 +7,8 @@ module.exports = function (app, socketio) {
     });
 
     socketio.sockets.on('connection', function (socket) {
-        tvShowService.fetchOverview({"set": "1"}, function(response) {
-            socket.emit('add-tvshow-items', response);
-        });
+
+        socket.emit('connected');
 
         socket.on('request-tvshow-items', function (receivedSet) {
             tvShowService.fetchOverview({"set": receivedSet}, function(response) {
@@ -22,6 +21,6 @@ module.exports = function (app, socketio) {
                 socket.emit("replace-tvshow-items", response);
             });
         });
-
     });
+
 };

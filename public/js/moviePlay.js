@@ -19,13 +19,17 @@ $(function () {
         $('#downloaded').html(percentage + '% of download completed');
     });
 
-    socket.on('download-stopped', function() {
-        $('#buffered').html('Torrent(s) stopped');
+    socket.on('torrent-stopped', function() {
+        $('#buffered').html('Torrent stopped');
         $("#downloaded").html('Player stopped');
     });
 
+    socket.on('torrent-completed', function() {
+        $("#downloaded").html('Torrent completed & stopped!');
+    });
+
     stopButton.on('click', function() {
-        socket.emit('stop');
+        socket.emit('stop-torrent');
     });
 
 });

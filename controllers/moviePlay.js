@@ -1,8 +1,7 @@
 var movieService = require('../service/movieService'),
     playerService = require('../service/playerService'),
     movieSubtitleService = require('../service/movieSubtitleService'),
-    proc = require('child_process'),
-    configService = require('../service/configService');
+    fileSystemService = require('../service/fileSystemService');
 
 module.exports = function (app, socketio) {
 
@@ -17,12 +16,8 @@ module.exports = function (app, socketio) {
 
     socketio.sockets.on('connection', function (socket) {
         socket.on('play', function (id) {
-            movieService.fetchDetails(id, function (response) {
-
-                // TODO do cleaning on tempPath somewhere else ...
-                configService.get('tempPath', function (tempPath) {
-                    proc.exec('rm -rf ' + tempPath + ' ; mkdir ' + tempPath);
-
+            fileSystemService.clearTempFolder(function() {
+                movieService.fetchDetails(id, function (response) {
                     // TODO remove the timeout
                     setTimeout(movieSubtitleService.getPathToSubtitles(response.imdbCode, function (subtitlePath) {
                         playerService.playMagnet(response.magnetUrl, subtitlePath);
@@ -31,8 +26,8 @@ module.exports = function (app, socketio) {
             });
         });
 
-        socket.on('stop', function () {
-            playerService.stop();
+        socket.on('stop-torrent', function () {
+            playerService.stopTorrent('torrent-stopped');
         });
 
         playerService.eventEmitter.on('buffered', function (percentage) {
@@ -43,8 +38,12 @@ module.exports = function (app, socketio) {
             socketio.emit('downloaded', percentage);
         });
 
-        playerService.eventEmitter.on('download-stopped', function () {
-            socketio.emit('download-stopped');
+        playerService.eventEmitter.on('torrent-stopped', function () {
+            socketio.emit('torrent-stopped');
+        });
+
+        playerService.eventEmitter.on('torrent-completed', function () {
+            socketio.emit('torrent-completed');
         });
     });
 

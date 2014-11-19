@@ -51,29 +51,33 @@ exports.getAvailableForMovie = function (imdb, callback) {
 
 exports.getPathToSubtitles = function (imdb, callback) {
     getSubtitlesUrl(imdb, function (url) {
-        var urlArray = url.split('/');
-        var fileName = urlArray[urlArray.length - 1];
 
-        configService.get("tempfolder", function (tmpFolder) {
-            var localZipPath = tmpFolder + "/" + fileName;
-            var writeZipFileStream = fs.createWriteStream(localZipPath);
+        if(url != null) {
+            var urlArray = url.split('/');
+            var fileName = urlArray[urlArray.length - 1];
 
-            http.get(url, function (response) {
-                response.pipe(writeZipFileStream);
-                writeZipFileStream.on('finish', function (data) {
-                    var zip = new AdmZip(localZipPath);
-                    var zipEntries = zip.getEntries();
+            configService.get("tempfolder", function (tmpFolder) {
+                var localZipPath = tmpFolder + "/" + fileName;
+                var writeZipFileStream = fs.createWriteStream(localZipPath);
 
-                    zipEntries.forEach(function (zipEntry) {
-                        var fileName = zipEntry.name.toString();
-                        if (endsWith(fileName.toLowerCase(), 'srt')) {
-                            zip.extractEntryTo(zipEntry, tmpFolder, false, true);
-                            var pathToSubtitle = tmpFolder + '/' + fileName;
-                            callback(pathToSubtitle);
-                        }
+                http.get(url, function (response) {
+                    response.pipe(writeZipFileStream);
+                    writeZipFileStream.on('finish', function (data) {
+                        var zip = new AdmZip(localZipPath);
+                        var zipEntries = zip.getEntries();
+
+                        zipEntries.forEach(function (zipEntry) {
+                            var fileName = zipEntry.name.toString();
+                            if (endsWith(fileName.toLowerCase(), 'srt')) {
+                                zip.extractEntryTo(zipEntry, tmpFolder, false, true);
+                                var pathToSubtitle = tmpFolder + '/' + fileName;
+                                callback(pathToSubtitle);
+                            }
+                        });
                     });
                 });
             });
-        });
+        }
+
     });
 };

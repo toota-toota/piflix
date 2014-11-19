@@ -2,7 +2,7 @@
   "subtitleLanguage": "All",
   "quality": "ALL",
   "player": "omx",
-  "tempfolder": "/tmp/piflix",
-  "bufferPercentage": 1.50,
+  "tempfolder": "./cache",
+  "bufferPercentage": 1.00,
   "showOnlyWithSubs": false
 }

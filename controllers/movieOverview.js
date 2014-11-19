@@ -7,9 +7,8 @@ module.exports = function (app, socketio) {
     });
 
     socketio.sockets.on('connection', function (socket) {
-        movieService.fetchOverview({"sort": "seeds", "set": "1", "limit" : "50"}, function(response) {
-            socket.emit('add-movie-items', response);
-        });
+
+        socket.emit('connected');
 
         socket.on('request-movie-items', function (receivedSet) {
             movieService.fetchOverview({"sort": "seeds", "set": receivedSet, "limit" : "50"}, function(response) {

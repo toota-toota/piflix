@@ -1,19 +1,22 @@
 $(function () {
     var host = $('body').data('serverhost');
     var socket = io.connect(host);
-    var receivedSet = 1;
+    var set = 1;
 
     var searchField = $("#search");
     searchField.on('input',function(e){
         socket.emit('request-moviesearch-suggestions', searchField.val());
     });
 
+    socket.on('connected', function() {
+       socket.emit('request-movie-items', set);
+    });
 
     socket.on('add-movie-items', function(json) {
         json.items.forEach(function(item) {
             $("#media").append(createItemSnippet(item));
         });
-        receivedSet++;
+        set++;
     });
 
     socket.on('replace-movie-items', function(json) {
@@ -21,7 +24,7 @@ $(function () {
         json.items.forEach(function(item) {
             $("#media").append(createItemSnippet(item));
         });
-        receivedSet++;
+        set++;
     });
 
     var createItemSnippet = function(item) {
@@ -36,7 +39,7 @@ $(function () {
 
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() == $(document).height()) {
-            socket.emit("request-movie-items", receivedSet);
+            socket.emit("request-movie-items", set);
         }
     });
 

@@ -1,18 +1,22 @@
 $(function () {
     var host = $('body').data('serverhost');
     var socket = io.connect(host);
-    var receivedSet = 1;
+    var set = 1;
 
     var searchField = $("#search");
     searchField.on('input',function(e){
         socket.emit('request-tvshowsearch-suggestions', searchField.val());
     });
 
+    socket.on('connected', function() {
+        socket.emit('request-tvshow-items', set);
+    });
+
     socket.on('add-tvshow-items', function(json) {
         json.items.forEach(function(item) {
             $("#media").append(createItemSnippet(item));
         });
-        receivedSet++;
+        set++;
     });
 
     socket.on('replace-tvshow-items', function(json) {
@@ -20,7 +24,7 @@ $(function () {
         json.items.forEach(function(item) {
             $("#media").append(createItemSnippet(item));
         });
-        receivedSet++;
+        set++;
     });
 
     var createItemSnippet = function(item) {
@@ -35,7 +39,7 @@ $(function () {
 
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() == $(document).height()) {
-            socket.emit("request-tvshow-items", receivedSet);
+            socket.emit("request-tvshow-items", set);
         }
     });
 });
