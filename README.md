@@ -1,5 +1,6 @@
 PiFlix
 ======
+![alt tag](http://i.imgur.com/cgDCsWV.png)
 
 PiFlix is a free netflix/popcorn time alternative for your Raspberry Pi. It's powered by Node.js and uses:
 - yts.re to fetch movie torrent data
