@@ -5,6 +5,7 @@ var
     fs = require('fs'),
     fileSystemService = require('./fileSystemService'),
     configService = require('./configService'),
+    omx = require('omx-manager'),
     EventEmitter = require('events').EventEmitter,
     eventEmitter = new EventEmitter(),
 
@@ -68,26 +69,32 @@ exports.playMagnet = function (magnet_uri, subtitlePath) {
                         } else {
                             eventEmitter.emit('buffered', 100.00);
                             configService.get('player', function (player) {
-                                var execBuilder = '';
+
                                 if (player === 'omx') {
-                                    execBuilder += 'omxplayer -p -o hdmi ';
-                                    execBuilder += "\"" + destinationPath + "\"";
+
+                                    var omxConfig = {
+                                        '-p': true,
+                                        '-o': 'hdmi'
+                                    };
+
                                     if (subtitlePath != null) {
-                                        execBuilder += ' --subtitles ';
-                                        execBuilder += "\"" + subtitlePath + "\"";
-                                        execBuilder += " --align center";
+                                        omxConfig['--subtitles'] = subtitlePath;
+                                        omxConfig['--align'] = 'center';
                                     }
+
+                                    omx.play(destinationPath, omxConfig);
+
                                 } else if (player == 'vlc') {
-                                    execBuilder += '/opt/homebrew-cask/Caskroom/vlc/2.1.5/VLC.app/Contents/MacOS/VLC ';
+                                    var execBuilder = '/opt/homebrew-cask/Caskroom/vlc/2.1.5/VLC.app/Contents/MacOS/VLC ';
                                     execBuilder += "\"" + destinationPath + "\"";
                                     if (subtitlePath != null) {
                                         execBuilder += ' --sub-file ';
                                         execBuilder += "\"" + subtitlePath + "\"";
                                     }
+                                    console.log('Buffering done, starting VLC ...');
+                                    proc.exec(execBuilder);
+                                    playerStarted = true;
                                 }
-                                console.log('Buffering done, starting player');
-                                proc.exec(execBuilder);
-                                playerStarted = true;
                             });
                         }
                     }
