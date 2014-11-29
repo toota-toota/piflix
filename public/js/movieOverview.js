@@ -35,10 +35,12 @@ $(function () {
         snippet += "</a>";
         snippet += "</li>";
         return snippet;
-    }
+    };
 
-    $(window).scroll(function() {
-        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+
+    $(document).scroll(function () {
+        var triggerScroll = $(window).scrollTop() + $(window).height() >= $(document).height();
+        if (triggerScroll) {
             socket.emit("request-movie-items", set);
         }
     });
