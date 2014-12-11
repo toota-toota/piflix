@@ -1,0 +1,44 @@
+doctype html
+html
+    head
+        title PiFlix
+        link(href='/css/style.css', rel='stylesheet')
+        link(href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", rel='stylesheet')
+
+        script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+        script(type='text/javascript', src='/socket.io/socket.io.js')
+        script(type='text/javascript', src='/js/moviePlay.js')
+
+    body(data-serverhost='#{host}', data-id='#{id}')
+    div
+        h1 PiFlix
+        h2 Starting movie on the HDMI output of your Raspberry Pi
+
+        h5(id='buffered')
+        h5(id='downloaded')
+
+        div
+            a(href="#" id="stopTorrent") Stop Torrent
+            br
+        div(style="margin-top: 20px")
+
+            a(href="#" id="fastBackward")
+                i(class="fa fa-border fa-3x fa-fast-backward")
+
+            a(href="#" id="backward")
+                i(class="fa fa-border fa-3x fa-backward")
+
+            a(href="#" id="stop")
+                i(class="fa fa-border fa-3x fa-stop")
+
+            a(href="#" id="play")
+                i(class="fa fa-border fa-3x fa-play")
+
+            a(href="#" id="pause")
+                i(class="fa fa-border fa-3x fa-pause")
+
+            a(href="#" id="forward")
+                i(class="fa fa-border fa-3x fa-forward")
+
+            a(href="#" id="fastForward")
+                i(class="fa fa-border fa-3x fa-fast-forward")

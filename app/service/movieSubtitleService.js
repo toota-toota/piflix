@@ -77,7 +77,8 @@ exports.getPathToSubtitles = function (imdb, callback) {
                     });
                 });
             });
+        } else {
+            callback(null);
         }
-
     });
 };

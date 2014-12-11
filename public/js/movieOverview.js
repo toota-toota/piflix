@@ -1,5 +1,6 @@
 $(function () {
     var host = $('body').data('serverhost');
+    console.log('host: ' + host);
     var socket = io.connect(host);
     var set = 1;
 

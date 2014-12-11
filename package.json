@@ -14,7 +14,8 @@
     "node": ">=0.10.30"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "grunt test"
   },
   "main": "server.js",
   "license": "ISC",

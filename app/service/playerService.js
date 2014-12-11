@@ -20,6 +20,53 @@ var
         }
     },
 
+    play = function() {
+        console.log('omx => play');
+        omx.play();
+    },
+
+    pause = function() {
+        console.log('omx => pause');
+        omx.pause();
+    },
+
+    stop = function() {
+        console.log('omx => stop');
+        omx.stop();
+    },
+
+    seekForward = function() {
+        console.log('omx => seek forward');
+        omx.seekForward();
+    },
+
+    seekFastForward = function() {
+        console.log('omx => seek fast forward');
+        omx.seekFastForward();
+    },
+
+    seekBackward = function() {
+        console.log('omx => seek backward');
+        omx.seekBackward();
+    },
+
+    seekFastBackward = function() {
+        console.log('omx => seek fast backward');
+        omx.seekFastBackward();
+    },
+
+
+
+    playPause = function (event) {
+        if (omx.isPlaying()) {
+            console.log('omx => play to pause');
+            omx.pause();
+        } else {
+            console.log('omx => pause to play');
+            omx.play();
+        }
+    },
+
     extractVideoFile = function (torrent, callback) {
         var videoFileData = {file: {}, length: 0};
         for (var i = 0; i < torrent.files.length; i++) {
@@ -37,10 +84,18 @@ var
 
 exports.eventEmitter = eventEmitter;
 exports.stopTorrent = stopTorrent;
+exports.stop = stop;
+exports.pause = pause;
+exports.play = play;
+exports.seekForward = seekForward;
+exports.seekFastForward = seekFastForward;
+exports.seekBackward = seekBackward;
+exports.seekFastBackward = seekFastBackward;
+exports.playPause = playPause;
 
 exports.playMagnet = function (magnet_uri, subtitlePath) {
     configService.load(function (config) {
-        stopTorrent('torrent-stopped');
+       // stopTorrent('torrent-stopped');
 
         torrent = torrentStream(magnet_uri, {tmp: config.tempfolder});
         torrent.on('ready', function () {

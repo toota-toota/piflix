@@ -9,7 +9,7 @@ exports.fetchOverview = function (options, callback) {
         yts.getMovies(options, function (ytsresponse) {
             var overview = {
                 items: []
-            }
+            };
 
             if(typeof ytsresponse.MovieList != "undefined") {
                 ytsresponse.MovieList.forEach(function (item) {

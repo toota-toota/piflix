@@ -3,9 +3,19 @@ $(function () {
     var id = $('body').data('id');
     var socket = io.connect(host);
 
-    var stopButton = $("#stop");
+    var fastBackward = $("#fastBackward");
+    var backward = $("#backward");
+    var stop = $("#stop");
+    var play = $("#play");
+    var pause = $("#pause");
+    var forward = $("#forward");
+    var fastForward = $("#fastForward");
 
-    socket.emit('play', id);
+    var stopTorrentButton = $("#stopTorrent");
+
+    socket.on('connected', function() {
+        socket.emit('start', id);
+    });
 
     socket.on('buffered', function(percentage) {
         if(percentage == 100) {
@@ -28,8 +38,36 @@ $(function () {
         $("#downloaded").html('Torrent completed & stopped!');
     });
 
-    stopButton.on('click', function() {
+    stopTorrentButton.on('click', function() {
         socket.emit('stop-torrent');
+    });
+
+    fastBackward.on('click', function() {
+        socket.emit('fastBackward');
+    });
+
+    backward.on('click', function() {
+        socket.emit('backward');
+    });
+
+    stop.on('click', function() {
+        socket.emit('stop');
+    });
+
+    play.on('click', function() {
+        socket.emit('play');
+    });
+
+    pause.on('click', function() {
+        socket.emit('pause');
+    });
+
+    forward.on('click', function() {
+        socket.emit('forward');
+    });
+
+    fastForward.on('click', function() {
+        socket.emit('fastForward');
     });
 
 });
