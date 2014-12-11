@@ -1,6 +1,6 @@
 $(function () {
     var host = $('body').data('serverhost');
-    var socket = io.connect(host);
+    var socket = io.connect(host + '/serie');
     var set = 1;
 
     var searchField = $("#search");

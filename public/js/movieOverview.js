@@ -1,7 +1,7 @@
 $(function () {
     var host = $('body').data('serverhost');
     console.log('host: ' + host);
-    var socket = io.connect(host);
+    var socket = io.connect(host + '/movie');
     var set = 1;
 
     var searchField = $("#search");

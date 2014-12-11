@@ -1,7 +1,7 @@
 $(function () {
     var host = $('body').data('serverhost');
     var id = $('body').data('id');
-    var socket = io.connect(host);
+    var socket = io.connect(host + '/play');
 
     var fastBackward = $("#fastBackward");
     var backward = $("#backward");
