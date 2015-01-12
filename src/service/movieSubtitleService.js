@@ -7,14 +7,14 @@ var AdmZip = require('adm-zip');
 var getSubtitlesUrl = function (imdb, callback) {
     configService.get("subtitleLanguage", function (lang) {
         if (lang == "All") {
-            callback(null);
+            return callback(null);
         } else {
             yifysubs.searchSubtitles(lang, imdb, function (result) {
                 if (result[lang.toLowerCase()]) {
                     var url = result[lang.toLowerCase()].url;
-                    callback(url);
+                    return callback(url);
                 } else {
-                    callback(null);
+                    return callback(null);
                 }
             });
         }
@@ -27,12 +27,12 @@ var endsWith = function (str, suffix) {
 
 exports.getAvailableLanguages = function (callback) {
     var languages = require('../data/subtitleLanguages.json'); // require caches, that's an advantage in this case
-    callback(languages);
+    return callback(languages);
 };
 
 exports.setLanguage = function (language, callback) {
     configService.set("subtitleLanguage", language, function (data) {
-        callback(data);
+        return callback(data);
     });
 };
 
@@ -41,10 +41,10 @@ exports.getAvailableForMovie = function (imdb, callback) {
         console.log(url);
         if (url != null) {
             configService.get("subtitleLanguage", function (lang) {
-                callback(lang);
+                return callback(lang);
             });
         } else {
-            callback(null);
+            return callback(null);
         }
     });
 };
@@ -52,7 +52,7 @@ exports.getAvailableForMovie = function (imdb, callback) {
 exports.getPathToSubtitles = function (imdb, callback) {
     getSubtitlesUrl(imdb, function (url) {
 
-        if(url != null) {
+        if (url != null) {
             var urlArray = url.split('/');
             var fileName = urlArray[urlArray.length - 1];
 
@@ -71,14 +71,13 @@ exports.getPathToSubtitles = function (imdb, callback) {
                             if (endsWith(fileName.toLowerCase(), 'srt')) {
                                 zip.extractEntryTo(zipEntry, tmpFolder, false, true);
                                 var pathToSubtitle = tmpFolder + '/' + fileName;
-                                callback(pathToSubtitle);
+                                return callback(pathToSubtitle);
                             }
                         });
                     });
                 });
             });
-        } else {
-            callback(null);
         }
+        return callback(null);
     });
 };

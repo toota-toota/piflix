@@ -55,8 +55,6 @@ var
         omx.seekFastBackward();
     },
 
-
-
     playPause = function (event) {
         if (omx.isPlaying()) {
             console.log('omx => play to pause');

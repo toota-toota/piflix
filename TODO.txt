@@ -1,0 +1,3 @@
+* Use Bower
+* Use Twitter Bootstrap
+* Unit Testing with Mocha

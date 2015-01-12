@@ -2,13 +2,21 @@ var  api = require("./api");
 
 function getMovies(options, callback)
 {
-    options.limit = 50;
+    //var options  = {
+    //    // limit : 5,
+    //    // set : 1,
+    //    // quality : 720,
+    //    // rating : 0,
+    //    // genre : "ALL",
+    //    sort : "date"
+    //    // order : "desc"
+    //};
     api.apiCall("list.json",options,null,callback,null,"GET");
 }
 
 function getUpcomingMovies(callback)
 {
-   api.apiCall("upcoming.json",null,null,callback,null,"GET");
+    api.apiCall("upcoming.json",null,null,callback,null,"GET");
 }
 
 function getMovieDetails(id,callback)
@@ -27,9 +35,9 @@ function getUserDetails(id,callback)
 }
 
 module.exports = {
-  getMovies : getMovies,
-  getUpcomingMovies : getUpcomingMovies,
-  getMovieDetails : getMovieDetails,
-  getComments : getComments,
-  getUserDetails : getUserDetails
+    getMovies : getMovies,
+    getUpcomingMovies : getUpcomingMovies,
+    getMovieDetails : getMovieDetails,
+    getComments : getComments,
+    getUserDetails : getUserDetails
 };

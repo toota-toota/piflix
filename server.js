@@ -18,12 +18,12 @@ var io = socketio.listen(app.listen(config.port));
 app.set('title', 'piflix');
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.set("views", path.join(__dirname, 'app/views'));
+app.set("views", path.join(__dirname, 'src/views'));
 app.set("view engine", "jade");
 
 // controllers & sockets
-require('./app/routes/routes').initialize(app);
-require('./app/sockets/sockets').initialize(io);
+require('./src/routes/routes').initialize(app);
+require('./src/sockets/sockets').initialize(io);
 
 // display where we're hosting the server from in the console
 require('dns').lookup(os.hostname(), function(err, address, ipFamily) {
@@ -34,3 +34,5 @@ require('dns').lookup(os.hostname(), function(err, address, ipFamily) {
         console.log('  http://' + os.hostname() + ':' + config.port);
     }
 });
+
+module.exports = app;

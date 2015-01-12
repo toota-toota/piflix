@@ -27,7 +27,7 @@ exports.fetchOverview = function (options, callback) {
 
 exports.fetchDetails = function (id, callback) {
     yts.getMovieDetails(id, function (ytsresponse) {
-        callback({
+        return  callback({
             "id": id,
             "imdbCode": ytsresponse.ImdbCode,
             "title": ytsresponse.MovieTitleClean,

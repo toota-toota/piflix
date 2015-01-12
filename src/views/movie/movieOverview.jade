@@ -43,26 +43,29 @@ html
 
                     div(class='media')
                         span(class='pull-left')
-                            img(class='media-object' id='media-img')
+                            img(class='media-object' id='media-img', src='/img/empty.jpg')
                     div(class='media-body')
 
                         div(class="row")
 
                             div(id="media-info", class="col-md-9")
-                                h4(class='media-heading' id="media-title")
-                                div(id='media-description')
+                                h4(class='media-heading' id="media-title") Welcome to PiFlix!
+                                div(id='media-description') Welcome to PiFlix. Select a movie from the list, or scroll down to load more movies. You can also use the search function in the top right corner. More functions will follow soon. Enjoy the ride!
 
                             div(id="stream-control", class="col-md-1")
-                                h4 Source
+                                h4 Torrent
+                                div(id="torrent-control")
+                                    a(href="#" id="torrentStartStop")
+                                        i(id="torrentStartStopIcon",class="fa fa-border fa-1x fa-play")
 
                                 div(class="progress")
-                                    div(class="progress-bar", role="progressbar", aria-valuenow="60", aria-valuemin="0" aria-valuemax="100" style="width: 60%") Stream
+                                    div(id="streamBar", class="progress-bar", role="progressbar", aria-valuenow="0", aria-valuemin="0" aria-valuemax="100" style="width: 60%; display: none") Buffer
 
                                 div(class="progress")
-                                    div(class="progress-bar", role="progressbar", aria-valuenow="60", aria-valuemin="0" aria-valuemax="100" style="width: 60%") Download
+                                    div(id="completeBar", class="progress-bar", role="progressbar", aria-valuenow="0", aria-valuemin="0" aria-valuemax="100" style="width: 60%; display: none") Complete
 
                             div(id="media-control", class="col-md-2")
-                                h4 Player
+                                h4 Raspberry Pi Player
                                 div(id="player-controls")
                                     a(href="#" id="fastBackward")
                                         i(class="fa fa-border fa-1x fa-fast-backward")

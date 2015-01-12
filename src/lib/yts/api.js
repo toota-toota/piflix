@@ -33,12 +33,9 @@ module.exports.apiCall = function (urlpart, options, id, callback, errorCallback
             result += chunk;
         });
         res.on('end', function () {
-            try {
-                var resultData = JSON.parse(result);
-                callback(resultData);
-            } catch(err) {
-                console.log('catched error: '+ err)
-            }
+            var resultData = JSON.parse(result);
+            //console.log(resultData);
+            callback(resultData);
         });
     })
         .on('error', function (err) {
@@ -46,4 +43,4 @@ module.exports.apiCall = function (urlpart, options, id, callback, errorCallback
             console.log(err);
         })
         .end();
-};
+}

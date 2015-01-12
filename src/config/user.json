@@ -1,0 +1,8 @@
+{
+  "subtitleLanguage": "Dutch",
+  "quality": "720p",
+  "player": "vlc",
+  "tempfolder": "./cache",
+  "bufferPercentage": 1.00,
+  "showOnlyWithSubs": false
+}
