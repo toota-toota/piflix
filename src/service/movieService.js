@@ -2,10 +2,9 @@ var yts = require('../lib/yts/yts');
 var configService = require('./configService');
 
 exports.fetchOverview = function (options, callback) {
+
     configService.load(function (config) {
-
         options.quality = config.quality;
-
         yts.getMovies(options, function (ytsresponse) {
             var overview = {
                 items: []
@@ -28,8 +27,6 @@ exports.fetchOverview = function (options, callback) {
 
 exports.fetchDetails = function (id, callback) {
     yts.getMovieDetails(id, function (ytsresponse) {
-
-        console.log('Showing details for: ' + ytsresponse.MovieTitleClean);
         callback({
             "id": id,
             "imdbCode": ytsresponse.ImdbCode,
@@ -38,6 +35,7 @@ exports.fetchDetails = function (id, callback) {
             "year": ytsresponse.MovieYear,
             "runtime": ytsresponse.MovieRuntime,
             "coverLarge": ytsresponse.LargeCover,
+            "coverMedium": ytsresponse.MediumCover,
             "torrentUrl": ytsresponse.TorrentUrl,
             "magnetUrl": ytsresponse.TorrentMagnetUrl
         });

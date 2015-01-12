@@ -1,8 +1,8 @@
 var fs = require('fs');
 var concat = require('concat-stream');
 
-var defaultPath = "./app/config/default.json";
-var userPath = "./app/config/user.json";
+var defaultPath = "./src/config/default.json";
+var userPath = "./src/config/user.json";
 
 var cached = null;
 

@@ -2,15 +2,7 @@ var  api = require("./api");
 
 function getMovies(options, callback)
 {
-    //var options  = {
-    //    // limit : 5,
-    //    // set : 1,
-    //    // quality : 720,
-    //    // rating : 0,
-    //    // genre : "ALL",
-    //    sort : "date"
-    //    // order : "desc"
-    //};
+    options.limit = 50;
     api.apiCall("list.json",options,null,callback,null,"GET");
 }
 

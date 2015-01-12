@@ -14,5 +14,13 @@ module.exports = function(io) {
                 socket.emit("replace-movie-items", response);
             });
         });
+
+        socket.on('request-details', function(data) {
+            console.log('server got request for details of id: ' + data.id);
+            movieService.fetchDetails(data.id, function(details) {
+                socket.emit('response-details', details);
+            })
+        });
+
     });
 };

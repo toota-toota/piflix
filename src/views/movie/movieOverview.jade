@@ -1,0 +1,81 @@
+doctype html
+html
+    head
+        title PiCorn
+        meta(name="viewport", content="width=device-width, height=device-height, initial-scale=1.0")
+
+        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+        script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js')
+        script(type='text/javascript', src='/socket.io/socket.io.js')
+        script(type='text/javascript', src='/js/movieOverview.js')
+
+        link(href='/css/style.css', rel='stylesheet')
+        link(href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", rel='stylesheet')
+        link(href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css", rel='stylesheet')
+        link(href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css", rel='stylesheet')
+
+    body(id="body" data-serverhost='#{host}')
+
+        nav(class="navbar navbar-inverse navbar-fixed-top", role="navigation")
+            div(class="container-fluid")
+                div(class="navbar-header")
+                    a(class="navbar-brand" href="#") PiCorn
+                div(id="navbar", class="collapse navbar-collapse")
+                    ul(class="nav navbar-nav")
+                        li(class="active")
+                            a(href="#") Movies
+                        li()
+                            a(href="#") Series
+
+                    form(class="navbar-form navbar-right", role="search")
+                        div(class="form-group")
+                            input(type="text" class="form-control" id="search" placeholder="Search")
+
+        div(class="container-fluid" id="container")
+
+            div
+                ul(id="media")
+                div(id="bottom")
+
+
+            nav(class="navbar navbar-inverse navbar-fixed-bottom", role="navigation")
+                div(class="container-fluid" id="details")
+
+                    div(class='media')
+                        span(class='pull-left')
+                            img(class='media-object' id='media-img')
+                    div(class='media-body')
+
+                        div(class="row")
+
+                            div(id="media-info", class="col-md-9")
+                                h4(class='media-heading' id="media-title")
+                                div(id='media-description')
+
+                            div(id="stream-control", class="col-md-1")
+                                h4 Source
+
+                                div(class="progress")
+                                    div(class="progress-bar", role="progressbar", aria-valuenow="60", aria-valuemin="0" aria-valuemax="100" style="width: 60%") Stream
+
+                                div(class="progress")
+                                    div(class="progress-bar", role="progressbar", aria-valuenow="60", aria-valuemin="0" aria-valuemax="100" style="width: 60%") Download
+
+                            div(id="media-control", class="col-md-2")
+                                h4 Player
+                                div(id="player-controls")
+                                    a(href="#" id="fastBackward")
+                                        i(class="fa fa-border fa-1x fa-fast-backward")
+                                    a(href="#" id="backward")
+                                        i(class="fa fa-border fa-1x fa-backward")
+                                    a(href="#" id="stop")
+                                        i(class="fa fa-border fa-1x fa-stop")
+                                    a(href="#" id="play")
+                                        i(class="fa fa-border fa-1x fa-play")
+                                    a(href="#" id="pause")
+                                        i(class="fa fa-border fa-1x fa-pause")
+                                    a(href="#" id="forward")
+                                        i(class="fa fa-border fa-1x fa-forward")
+                                    a(href="#" id="fastForward")
+                                        i(class="fa fa-border fa-1x fa-fast-forward")
+
