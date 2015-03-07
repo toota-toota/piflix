@@ -1,3 +1,5 @@
+"use strict";
+
 var
     torrent = null,
     torrentStream = require('torrent-stream'),
@@ -10,7 +12,7 @@ var
     eventEmitter = new EventEmitter(),
 
     stopTorrent = function (event) {
-        if (torrent != null) {
+        if (torrent) {
             torrent.destroy(function () {
                 torrent = null;
                 fileSystemService.clearTempFolder(function () {
@@ -91,11 +93,10 @@ exports.seekBackward = seekBackward;
 exports.seekFastBackward = seekFastBackward;
 exports.playPause = playPause;
 
-exports.playMagnet = function (magnet_uri, subtitlePath) {
+exports.playMagnet = function (hash, subtitlePath) {
     configService.load(function (config) {
-       // stopTorrent('torrent-stopped');
-
-        torrent = torrentStream(magnet_uri, {tmp: config.tempfolder});
+        var magnet = "magnet:?xt=urn:btih:" + hash + "&tr=udp://open.demonii.com:1337&tr=udp://tracker.istole.it:80&tr=http://tracker.yify-torrents.com/announce&tr=udp://tracker.publicbt.com:80&tr=udp://tracker.openbittorrent.com:80&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://exodus.desync.com:6969&tr=http://exodus.desync.com:6969/announce";
+        torrent = torrentStream(magnet, {tmp: config.tempfolder});
         torrent.on('ready', function () {
             extractVideoFile(torrent, function (file) {
 
@@ -130,17 +131,17 @@ exports.playMagnet = function (magnet_uri, subtitlePath) {
                                         '-o': 'hdmi'
                                     };
 
-                                    if (subtitlePath != null) {
+                                    if (subtitlePath) {
                                         omxConfig['--subtitles'] = subtitlePath;
                                         omxConfig['--align'] = 'center';
                                     }
 
                                     omx.play(destinationPath, omxConfig);
 
-                                } else if (player == 'vlc') {
+                                } else if (player === 'vlc') {
                                     var execBuilder = '/opt/homebrew-cask/Caskroom/vlc/2.1.5/VLC.app/Contents/MacOS/VLC ';
                                     execBuilder += "\"" + destinationPath + "\"";
-                                    if (subtitlePath != null) {
+                                    if (subtitlePath) {
                                         execBuilder += ' --sub-file ';
                                         execBuilder += "\"" + subtitlePath + "\"";
                                     }

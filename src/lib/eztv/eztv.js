@@ -1,3 +1,5 @@
+"use strict";
+
 var request = require('request');
 var baseUrl = 'http://eztvapi.re/';
 
@@ -26,13 +28,13 @@ var replaceWithDefaultsWhenMissing = function (options, callback) {
     }
 
     callback(options);
-}
+};
 
 exports.getOverview = function (options, callback) {
     replaceWithDefaultsWhenMissing(options, function(o) {
-        var url = baseUrl + 'shows/' + o.set
-            + '?sort=' + o.sort
-            + '&keywords=' + o.keywords;
+        var url = baseUrl + 'shows/' + o.set +
+            '?sort=' + o.sort +
+            '&keywords=' + o.keywords;
         doRequest(url, callback);
     });
 };

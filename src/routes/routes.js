@@ -1,3 +1,5 @@
+"use strict";
+
 var movie = require('../controllers/movie');
 
 module.exports.initialize = function(app) {

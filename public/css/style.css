@@ -17,7 +17,7 @@ ul#media {
 }
 
 ul#media li {
-    width: 150px;
+    width: 225px;
     height: 225px;
     display: inline-block;
     vertical-align: top;
@@ -26,6 +26,15 @@ ul#media li {
     *zoom: 1;
 }
 
+#media-img {
+    max-height: 200px;
+    max-width: 200px;
+}
+
+ul#media img {
+    max-height: 200px;
+    max-width: 200px;
+}
 #body {
     background-color: #1E1E1E;
     color: silver;
@@ -42,8 +51,8 @@ ul#media a {
     margin: auto;
     left:0; right:0;
     display: block;
-    max-width:120px;
-    max-height:180px;
+    max-width:200px;
+    max-height:200px;
     width: auto;
     height: auto;
 }

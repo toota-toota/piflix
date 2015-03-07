@@ -19,6 +19,7 @@
   "main": "server.js",
   "license": "ISC",
   "dependencies": {
+    "yts": "1.0.0",
     "adm-zip": "^0.4.4",
     "concat-stream": "^1.4.6",
     "express": "^4.10.2",
@@ -31,7 +32,7 @@
     "request": "2.48.0",
     "rimraf": "2.2.8",
     "socket.io": ">1.0.0",
-    "torrent-stream": "0.15.1",
+    "torrent-stream": "0.17.0",
     "yifysubs": "0.0.1"
   }
 }

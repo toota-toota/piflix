@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = function (io) {
     var movieService = require('../service/movieService');
     var playerService = require('../service/playerService');
@@ -14,7 +16,7 @@ module.exports = function (io) {
         });
 
         socket.on('request-moviesearch-suggestions', function (enteredText) {
-            movieService.fetchOverview({"sort": "seeds", "limit": "50", "keywords": enteredText}, function (response) {
+            movieService.fetchOverview({"sort_by": "seeds", "limit": "50", "query_term": enteredText}, function (response) {
                 socket.emit("replace-movie-items", response);
             });
         });
@@ -23,24 +25,20 @@ module.exports = function (io) {
             console.log('server got request for details of id: ' + data.id);
             movieService.fetchDetails(data.id, function (details) {
                 socket.emit('response-details', details);
-            })
+            });
         });
 
 
         socket.on('start-torrent', function (data) {
-
             console.log('socket on start');
-
             fileSystemService.clearTempFolder(function () {
                 console.log('cleared temp folder');
                 movieService.fetchDetails(data.id, function (response) {
                     // TODO remove the timeout
                     console.log('fetched movie details');
                     setTimeout(movieSubtitleService.getPathToSubtitles(response.imdbCode, function (subtitlePath) {
-
-                        console.log("magnet: " + response.magnetUrl);
-
-                        playerService.playMagnet(response.magnetUrl, subtitlePath);
+                        console.log("magnet: " + response.hash);
+                        playerService.playMagnet(response.hash, subtitlePath);
                     }), 2000);
                 });
             });

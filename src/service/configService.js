@@ -1,3 +1,5 @@
+"use strict";
+
 var fs = require('fs');
 var concat = require('concat-stream');
 
@@ -11,14 +13,14 @@ exports.set = function (key, value, callback) {
         config[key] = value;
         save(config, function (persistedConfig) {
             callback(persistedConfig);
-        })
+        });
     });
 };
 
 exports.get = function (key, callback) {
     load(function (config) {
         callback(config[key]);
-    })
+    });
 };
 
 var load = function (callback) {
@@ -49,7 +51,9 @@ var save = function (config, callback) {
     cached = config;
     var str = JSON.stringify(config, null, 2);
     fs.writeFile(userPath, str, function (err) {
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
         callback(config);
     });
 };

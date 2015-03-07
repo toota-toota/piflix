@@ -1,4 +1,4 @@
-
+"use strict";
 var movieService = require('../service/movieService'),
     movieSubtitleService = require('../service/movieSubtitleService');
 

@@ -1,3 +1,5 @@
+"use strict";
+
 $(document).ready(function () {
     var host = $('body').data('serverhost');
     console.log('host: ' + host);
