@@ -3,7 +3,7 @@ var http = require("http"),
 module.exports.apiCall = function (urlpart, options, id, callback, errorCallback, method) {
     var onError = errorCallback || function () {
             },
-        baseUrl = "yts.re",
+        baseUrl = "yts.popcorntimece.ch",
         apiEndPoint = "/api/" + urlpart + "?",
         params = null,
         url = null,
