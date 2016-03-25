@@ -1,7 +1,7 @@
 "use strict";
 
 var request = require('request');
-var baseUrl = 'http://eztvapi.re/';
+var baseUrl = 'https://popcorntimece.ch/api/v2/';
 
 var doRequest = function (url, callback) {
     request(url, function (err, res, body) {
